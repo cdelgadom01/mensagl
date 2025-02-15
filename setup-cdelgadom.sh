@@ -4,7 +4,7 @@
 
 # VARIABLES
 VPC_NAME="reto25-equipo3-cdelgadom-vpc"
-CIDR_BLOCK="10.0.0.0/16"
+CIDR_BLOCK="10.207.0.0/16"
 REGION="us-east-1"
 
 # Crear una VPC
@@ -162,7 +162,7 @@ echo "Permitido tráfico SSH desde cualquier IP"
 # AMI de Ubuntu Server 24.04 LTS (ID puede variar por región, ajusta según sea necesario)
 AMI_ID="ami-04b4f1a9cf54c11d0" # Reemplaza con la AMI correcta de Ubuntu 24.04
 INSTANCE_TYPE="t2.micro"
-KEY_NAME="reto25-equipo3-pablomm"
+KEY_NAME="reto25-equipo3-cdelgadom"
 KEY_FILE="$KEY_NAME.pem"
 
 # Verificar si la clave SSH ya existe
@@ -181,7 +181,7 @@ INSTANCE_EJABBERD=$(aws ec2 run-instances \
   --instance-type $INSTANCE_TYPE \
   --key-name $KEY_NAME \
   --subnet-id $SUBNET_PUBLIC_1 \
-  --private-ip-address 10.0.1.10 \
+  --private-ip-address 10.207.1.10 \
   --security-group-ids $SG_EJABBERD \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=equipo3-ejabberd}]' \
   --associate-public-ip-address \
@@ -194,7 +194,7 @@ INSTANCE_POSTGRES=$(aws ec2 run-instances \
   --instance-type $INSTANCE_TYPE \
   --key-name $KEY_NAME \
   --subnet-id $SUBNET_PRIVATE_1 \
-  --private-ip-address 10.0.3.100 \
+  --private-ip-address 10.297.3.100 \
   --security-group-ids $SG_POSTGRESQL \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=equipo3-postgresql}]' \
   --query 'Instances[0].InstanceId' --output text)
@@ -206,7 +206,7 @@ INSTANCE_CMS=$(aws ec2 run-instances \
   --instance-type $INSTANCE_TYPE \
   --key-name $KEY_NAME \
   --subnet-id $SUBNET_PUBLIC_2 \
-  --private-ip-address 10.0.2.10 \
+  --private-ip-address 10.207.2.10 \
   --security-group-ids $SG_CMS \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=equipo3-cms}]' \
   --associate-public-ip-address \
@@ -219,7 +219,7 @@ INSTANCE_MYSQL=$(aws ec2 run-instances \
   --instance-type $INSTANCE_TYPE \
   --key-name $KEY_NAME \
   --subnet-id $SUBNET_PRIVATE_2 \
-  --private-ip-address 10.0.4.100 \
+  --private-ip-address 10.207.4.100 \
   --security-group-ids $SG_MYSQL \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=equipo3-mysql}]' \
   --query 'Instances[0].InstanceId' --output text)
